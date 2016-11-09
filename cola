@@ -1,0 +1,59 @@
+#Dependência Angular CLI (Node >= 4)
+
+ sudo npm install -g angular-cli
+
+#Novo Projeto
+
+ ng new project_name
+ cd project_name
+
+# Rodar Projeto
+ ng serve
+
+#Component	
+	ng g component my-new-component
+
+#Directive	
+	ng g directive my-new-directive
+
+#Pipe	
+	ng g pipe my-new-pipe
+
+#Service	
+	ng g service my-new-service
+
+#Class	
+	ng g class my-new-class
+
+#Interface	
+	ng g interface my-new-interface
+
+#Enum	
+	ng g enum my-new-enum
+
+#Module	
+	ng g module my-module
+
+# Criando Projeto Pré processadores
+
+	ng new sassy-project --style=sass  | ng set defaults.styleExt scss (Atualizar um projeto existente)
+	ng new less-project --style=less  | ng set defaults.styleExt less (Atualizar um projeto existente)
+        ng new style-project --style=stylus  | ng set defaults.styleExt styl (Atualizar um projeto existente)
+
+# Gerar Build Dev
+	ng build
+
+# Gerar Build Produção
+ 	ng build --prod
+	
+# Instalar Libs Externas
+   #Bootstrap	
+	npm install --save bootstrap@next
+
+   #Materialize
+	https://www.npmjs.com/package/angular2-materialize
+
+	npm install materialize-css --save
+     	npm install angular2-materialize --save
+	npm install jquery@^2.2.4 --save
+
