@@ -6,16 +6,18 @@ import { HttpModule } from '@angular/http';
 import { MaterializeModule } from 'angular2-materialize';
 
 import { AppComponent } from './app.component';
+import { LoginModule } from './login/login.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterializeModule
+    MaterializeModule,
+    LoginModule
   ],
   providers: [],
   bootstrap: [AppComponent]
