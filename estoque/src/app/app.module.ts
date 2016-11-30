@@ -6,6 +6,8 @@ import { HttpModule } from '@angular/http';
 import { MaterializeModule } from 'angular2-materialize';
 
 import { AppComponent } from './app.component';
+import { routing }      from './app.routing';
+
 import { LoginModule } from './login/login.module';
 import { HomeModule } from './home/home.module';
 import { UsersModule } from './users/users.module';
@@ -18,6 +20,7 @@ import { UsersModule } from './users/users.module';
     BrowserModule,
     FormsModule,
     HttpModule,
+    routing,
     MaterializeModule,
     LoginModule,
     HomeModule,

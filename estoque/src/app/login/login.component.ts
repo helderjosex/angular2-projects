@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { LoginService } from './login.service';
 
@@ -13,7 +14,9 @@ export class LoginComponent implements OnInit {
   error = '';
   urlImg = '../assets/images/login-image.jpg';
 
-  constructor(private loginService: LoginService) { }
+  constructor(
+    private router: Router,
+    private loginService: LoginService) { }
 
   ngOnInit() {
   }
@@ -24,7 +27,7 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.model.username, this.model.password)
         .subscribe(result => {
             if (result === true) {
-                //this.router.navigate(['/']);
+                this.router.navigate(['/']);
             } else {
                 this.error = 'Username or password is incorrect';
                 this.loading = false;
