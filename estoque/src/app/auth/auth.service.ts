@@ -6,8 +6,8 @@ import 'rxjs/add/operator/map'
 import { User } from './../users/user';
  
 @Injectable()
-export class LoginService {
-    private loginUrl = 'http://localhost:8000/auth/login';
+export class AuthService {
+    private authUrl = 'http://localhost:8000/auth/login';
     public token: string;
  
     constructor(private http: Http) {
@@ -50,7 +50,7 @@ export class LoginService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.loginUrl, { username: username, password: password }, options)
+        return this.http.post(this.authUrl, { username: username, password: password }, options)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -59,6 +59,14 @@ export class LoginService {
         // clear token remove user from local storage to log user out
         this.token = null;
         localStorage.removeItem('currentUser');
+    }
+
+    isAuthenticated() {
+        if (localStorage.getItem('currentUser')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 

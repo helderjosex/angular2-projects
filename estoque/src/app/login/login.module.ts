@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login.component';
-import { LoginGuard } from './login.guard';
-import { LoginService } from './login.service';
 import { UsersModule } from './../users/users.module';
 
 @NgModule({
@@ -14,6 +12,6 @@ import { UsersModule } from './../users/users.module';
     UsersModule,
   ],
   exports: [LoginComponent],
-  providers: [LoginGuard,LoginService],
+  providers: [],
 })
 export class LoginModule { }

@@ -7,7 +7,8 @@ import { MaterializeModule } from 'angular2-materialize';
 
 import { AppComponent } from './app.component';
 import { routing }      from './app.routing';
-
+import { AuthService } from './auth/auth.service';
+import { AuthGuard } from './auth/auth.guard';
 import { LoginModule } from './login/login.module';
 import { HomeModule } from './home/home.module';
 import { UsersModule } from './users/users.module';
@@ -26,7 +27,10 @@ import { UsersModule } from './users/users.module';
     HomeModule,
     UsersModule
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
