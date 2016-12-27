@@ -1,9 +1,12 @@
+import { NgModule } from '@angular/core';
+
 import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { UsersComponent } from './users/users.component';
+
 
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -14,4 +17,8 @@ const appRoutes: Routes = [
     { path: '**', redirectTo: '' }
 ];
 
-export const routing = RouterModule.forRoot(appRoutes);
+@NgModule({
+    imports: [RouterModule.forRoot(appRoutes)],
+    exports: [RouterModule]
+})
+export class AppRoutingModule {}
