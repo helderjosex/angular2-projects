@@ -25,10 +25,10 @@ import { HeaderComponent } from './shared/header/header.component';
     HttpModule,
     MaterializeModule,
     SharedModule,
-    AppRoutingModule,
     LoginModule,
     HomeModule,
-    UsersModule
+    UsersModule,
+    AppRoutingModule    
   ],
   providers: [
     AuthGuard,

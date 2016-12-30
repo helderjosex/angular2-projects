@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
 import { HomeComponent } from './home.component';
 import { UsersModule } from './../users/users.module';
 
@@ -7,6 +9,7 @@ import { UsersModule } from './../users/users.module';
   declarations: [HomeComponent],
   imports: [
     CommonModule,
+    RouterModule,
     UsersModule
   ],
   exports: [HomeComponent],
