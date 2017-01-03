@@ -3,59 +3,59 @@ import { Router } from '@angular/router';
 import { Http, Headers, Response, RequestOptions} from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map'
-
-import { User } from './../users/user';
  
 @Injectable()
 export class AuthService {
-    private authUrl = 'http://localhost:8000/auth/login';
+    private url = 'http://localhost:8000/auth/login';
     public token: string;
+    private headers = new Headers({ 'Content-Type': 'application/json' });
+    private options = new RequestOptions({ headers: this.headers });
  
     constructor(
         private http: Http,
-        private router: Router 
-    ) {
+        private router: Router) {
         // set token if saved in local storage
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser && currentUser.token;
     }
 
     private extractData(res: Response) {
-      let body = res.json();
-      let token = res.json() && res.json().token;
-      if (token) {
-        // set token property
-        this.token = token;
-        let username = res.json().user.username;
-        // store username and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
-
-        // return true to indicate successful login
+        let body = res.json();
         return body.data || { };
-      }
     }
 
     private handleError (error: Response | any) {
         // In a real world app, we might use a remote logging infrastructure
         let errMsg: string;
         if (error instanceof Response) {
-        const body = error.json() || '';
-        const err = body.error || JSON.stringify(body);
-        errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+            const body = error.json() || '';
+            const err = body.error || JSON.stringify(body);
+            errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
         } else {
-        errMsg = error.message ? error.message : error.toString();
+            errMsg = error.message ? error.message : error.toString();
         }
         console.error(errMsg);
         return Observable.throw(errMsg);
     }
 
-    login(username: string, password: string): Observable<User> {
-
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-
-        return this.http.post(this.authUrl, { username: username, password: password }, options)
-            .map(this.extractData)
+    login(username: string, password: string): Observable<boolean> {
+        let body = JSON.stringify({ username: username, password: password });
+        return this.http.post(this.url, body, this.options)
+            .map((response: Response) => {
+                // login successful if there's a jwt token in the response
+                let token = response.json() && response.json().token;
+                if (token) {
+                    // set token property
+                    this.token = token;
+                    // store username and jwt token in local storage to keep user logged in between page refreshes
+                    localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
+                    // return true to indicate successful login
+                    return true;
+                } else {
+                    // return false to indicate falied login
+                    return false;
+                }
+            })
             .catch(this.handleError);
     }
  
