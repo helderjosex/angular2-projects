@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Http, Headers, Response, RequestOptions} from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map'
+
+import { User } from './../users/user';
  
 @Injectable()
 export class AuthService {
@@ -38,8 +40,8 @@ export class AuthService {
         return Observable.throw(errMsg);
     }
 
-    login(username: string, password: string): Observable<boolean> {
-        let body = JSON.stringify({ username: username, password: password });
+    login(user: User): Observable<boolean> {
+        let body = JSON.stringify({ username: user.username, password: user.password });
         return this.http.post(this.url, body, this.options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
@@ -48,7 +50,7 @@ export class AuthService {
                     // set token property
                     this.token = token;
                     // store username and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
+                    localStorage.setItem('currentUser', JSON.stringify({ username: user.username, token: token }));
                     // return true to indicate successful login
                     return true;
                 } else {

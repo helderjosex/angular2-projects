@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from './../auth/auth.service';
+import { User } from './../users/user';
 
 @Component({
   selector: 'app-login',
@@ -9,10 +10,11 @@ import { AuthService } from './../auth/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  model: any = {};
-  loading = false;
-  error = '';
-  urlImg = '../assets/images/login-image.jpg';
+    
+  private loading = false;
+  private error = '';
+  private urlImg = '../assets/images/login-image.jpg';
+  private user: User = new User();
 
   constructor(
     private router: Router,
@@ -23,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   onLogin(){    
     this.loading = true;
-    this.authService.login(this.model.username, this.model.password)
+    this.authService.login(this.user)
         .subscribe(
               result  => {
                   this.router.navigate(['/']);
