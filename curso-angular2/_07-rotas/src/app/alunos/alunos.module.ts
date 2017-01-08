@@ -10,7 +10,7 @@ import { AlunosService } from './alunos.service';
 
 @NgModule({
     imports: [
-        CommonModule,
+        CommonModule,        
         FormsModule,
         AlunosRoutingModule
     ],
