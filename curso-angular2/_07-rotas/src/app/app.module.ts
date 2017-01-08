@@ -16,6 +16,7 @@ import { AppRoutingModule } from './app.routing.module';
 // import { CursoDetalheComponent } from './cursos/curso-detalhe/curso-detalhe.component';
 // import { CursosService } from './cursos/cursos.service';
 // import { CursoNaoEncontradoComponent } from './cursos/curso-nao-encontrado/curso-nao-encontrado.component';
+import { AuthService } from './login/auth.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { AppRoutingModule } from './app.routing.module';
     AppRoutingModule
     //routing
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
