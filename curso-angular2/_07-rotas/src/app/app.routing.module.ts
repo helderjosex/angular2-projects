@@ -11,6 +11,10 @@ import { LoginComponent } from './login/login.component';
 
 
 const appRoutes: Routes = [
+    // LAZY LOADING - MELHORAR A PERFORMANCE
+    { path: 'cursos', loadChildren: 'app/cursos/cursos.module#CursosModule' },
+    { path: 'alunos', loadChildren: 'app/alunos/alunos.module#AlunosModule' },
+
     // { path: 'cursos', component: CursosComponent},
     // { path: 'curso/:id', component: CursoDetalheComponent},
     // { path: 'naoEncontrado', component: CursoNaoEncontradoComponent},
