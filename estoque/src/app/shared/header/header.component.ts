@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from './../../auth/auth.service';
 
@@ -9,14 +10,24 @@ import { AuthService } from './../../auth/auth.service';
 })
 export class HeaderComponent {
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService) { }
 
   isAuth() {
     return this.authService.isAuthenticated();
   }
 
   onLogout() {
-    this.authService.logout();
+    this.authService.logout()
+        .subscribe(
+              result  => {              
+                 this.router.navigate(['/login']);
+              },
+              error => {
+                 console.log('logout failed');
+              }
+         );    
   }
 
 }

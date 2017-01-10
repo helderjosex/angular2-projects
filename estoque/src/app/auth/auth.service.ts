@@ -8,7 +8,9 @@ import { User } from './../users/user';
  
 @Injectable()
 export class AuthService {
-    private url = 'http://localhost:8000/auth/login';
+    private host = 'http://localhost:8000/auth/';
+    private urlLogin = this.host + 'login';
+    private urlLogout = this.host + 'logout';
     public token: string;
     private headers = new Headers({ 'Content-Type': 'application/json' });
     private options = new RequestOptions({ headers: this.headers });
@@ -42,7 +44,7 @@ export class AuthService {
 
     login(user: User): Observable<boolean> {
         let body = JSON.stringify({ username: user.username, password: user.password });
-        return this.http.post(this.url, body, this.options)
+        return this.http.post(this.urlLogin, body, this.options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let token = response.json() && response.json().token;
@@ -61,11 +63,23 @@ export class AuthService {
             .catch(this.handleError);
     }
  
-    logout(): void {
-        // clear token remove user from local storage to log user out
-        this.token = null;
-        localStorage.removeItem('currentUser');
-        this.router.navigate(['/login']);
+    logout(): Observable<boolean> {
+        let body = JSON.stringify({});        
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token});
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.urlLogout, body, options)
+            .map((response: Response) => {
+                 if(response.json()){
+                    // clear token remove user from local storage to log user out
+                     this.token = null;
+                     localStorage.removeItem('currentUser');
+                     return true;
+                 }else {
+                     return false;
+                 }
+                
+            })
+            .catch(this.handleError);
     }
 
     isAuthenticated() {
